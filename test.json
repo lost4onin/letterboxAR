@@ -1,0 +1,417 @@
+{
+  "info": {
+    "name": "letterboxdAR API - Full Test Collection",
+    "_postman_id": "22222222-2222-2222-2222-222222222222",
+    "description": "Complete Postman collection for testing all letterboxdAR API endpoints. Pre-configured with seeded data IDs. Run requests in order for best results.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8080", "type": "string" },
+    { "key": "user_id", "value": "1", "type": "string" },
+    { "key": "user2_id", "value": "2", "type": "string" },
+    { "key": "movie_id", "value": "1", "type": "string" },
+    { "key": "movie_title", "value": "Inception", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "🏥 Health Check",
+      "item": [
+        {
+          "name": "GET /actuator/health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/actuator/health",
+              "host": ["{{base_url}}"],
+              "path": ["actuator", "health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🎬 Movies CRUD",
+      "item": [
+        {
+          "name": "GET all movies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/movies",
+              "host": ["{{base_url}}"],
+              "path": ["movies"]
+            }
+          }
+        },
+        {
+          "name": "GET movie by ID (Inception)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/movies/1",
+              "host": ["{{base_url}}"],
+              "path": ["movies", "1"]
+            }
+          }
+        },
+        {
+          "name": "GET movie by ID (Parasite)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/movies/4",
+              "host": ["{{base_url}}"],
+              "path": ["movies", "4"]
+            }
+          }
+        },
+        {
+          "name": "GET movie not found (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/movies/999",
+              "host": ["{{base_url}}"],
+              "path": ["movies", "999"]
+            }
+          }
+        },
+        {
+          "name": "POST create new movie",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Blade Runner 2049\",\n  \"director\": \"Denis Villeneuve\",\n  \"year\": 2017,\n  \"genre\": \"Sci-Fi\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/movies",
+              "host": ["{{base_url}}"],
+              "path": ["movies"]
+            }
+          }
+        },
+        {
+          "name": "PUT update movie (Inception)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Inception (Director's Cut)\",\n  \"director\": \"Christopher Nolan\",\n  \"year\": 2010,\n  \"genre\": \"Sci-Fi\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/movies/{{movie_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["movies", "{{movie_id}}"]
+            }
+          }
+        },
+        {
+          "name": "DELETE movie (last created)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/movies/21",
+              "host": ["{{base_url}}"],
+              "path": ["movies", "21"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "👤 Users CRUD",
+      "item": [
+        {
+          "name": "GET all users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "GET user by ID (cinephile)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "GET user by ID (filmfan)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/{{user2_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user2_id}}"]
+            }
+          }
+        },
+        {
+          "name": "POST create new user",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"newuser\",\n  \"email\": \"newuser@test.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "PUT update user (cinephile)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"cinephile_updated\",\n  \"email\": \"updated@letterboxd.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "DELETE user (newuser - id 3)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/3",
+              "host": ["{{base_url}}"],
+              "path": ["users", "3"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "📋 Watchlist",
+      "item": [
+        {
+          "name": "GET user1 watchlist (5 films)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}/watchlist",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}", "watchlist"]
+            }
+          }
+        },
+        {
+          "name": "GET user2 watchlist (2 films)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/{{user2_id}}/watchlist",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user2_id}}", "watchlist"]
+            }
+          }
+        },
+        {
+          "name": "PUT add Amélie to user1 watchlist",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}/watchlist?movieTitle=Amélie",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}", "watchlist"],
+              "query": [
+                { "key": "movieTitle", "value": "Amélie" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT add Drive to user2 watchlist",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/{{user2_id}}/watchlist?movieTitle=Drive",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user2_id}}", "watchlist"],
+              "query": [
+                { "key": "movieTitle", "value": "Drive" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT add duplicate (already in watchlist - no error)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}/watchlist?movieTitle=The Batman",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}", "watchlist"],
+              "query": [
+                { "key": "movieTitle", "value": "The Batman" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT add nonexistent movie (404)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}/watchlist?movieTitle=DoesNotExist",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}", "watchlist"],
+              "query": [
+                { "key": "movieTitle", "value": "DoesNotExist" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "📖 Watched Films (Diary)",
+      "item": [
+        {
+          "name": "GET user1 watched films (10 entries)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}/watchedfilms",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}", "watchedfilms"]
+            }
+          }
+        },
+        {
+          "name": "GET user2 watched films (3 entries)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/{{user2_id}}/watchedfilms",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user2_id}}", "watchedfilms"]
+            }
+          }
+        },
+        {
+          "name": "PUT log The Batman (auto-removes from watchlist)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"review\": \"Dark, gritty, and absolutely stunning. Pattinson nailed it.\",\n  \"rating\": 4.0,\n  \"watchedDate\": \"05/05/2026\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}/watchedfilms?movieTitle=The Batman",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}", "watchedfilms"],
+              "query": [
+                { "key": "movieTitle", "value": "The Batman" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT log Oppenheimer (not in watchlist)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"review\": \"Nolan's magnum opus. Cillian Murphy is phenomenal.\",\n  \"rating\": 5.0,\n  \"watchedDate\": \"04/05/2026\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}/watchedfilms?movieTitle=Oppenheimer",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}", "watchedfilms"],
+              "query": [
+                { "key": "movieTitle", "value": "Oppenheimer" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT log with no review (minimal body)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 3.5,\n  \"watchedDate\": \"01/05/2026\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/{{user2_id}}/watchedfilms?movieTitle=Inception",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user2_id}}", "watchedfilms"],
+              "query": [
+                { "key": "movieTitle", "value": "Inception" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET user1 watchlist AFTER logging (verify auto-removal)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}/watchlist",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}", "watchlist"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import com.example.letterboxd.repository.MovieRepository;
 import com.example.letterboxd.repository.UserRepository;
 import com.example.letterboxd.repository.WatchedFilmRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -33,11 +34,12 @@ public class WatchedFilmService {
         return watchedFilmRepository.findByUserId(userId);
     }
 
+    @Transactional
     public Optional<WatchedFilm> addWatchedFilm(Long userId, String movieTitle,
                                                 String review, Double rating,
                                                 String watchedDate) {
         Optional<User> userOpt = userRepository.findById(userId);
-        Optional<Movie> movieOpt = movieRepository.findByTitleIgnoreCase(movieTitle);
+        Optional<Movie> movieOpt = movieRepository.findFirstByTitleIgnoreCase(movieTitle);
 
         if (userOpt.isPresent() && movieOpt.isPresent()) {
             User user = userOpt.get();

@@ -5,6 +5,7 @@ import com.example.letterboxd.model.User;
 import com.example.letterboxd.repository.MovieRepository;
 import com.example.letterboxd.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,9 +48,10 @@ public class UserService {
         return false;
     }
 
+    @Transactional
     public Optional<User> addMovieToWatchlist(Long userId, String movieTitle) {
         Optional<User> userOpt = userRepository.findById(userId);
-        Optional<Movie> movieOpt = movieRepository.findByTitleIgnoreCase(movieTitle);
+        Optional<Movie> movieOpt = movieRepository.findFirstByTitleIgnoreCase(movieTitle);
 
         if (userOpt.isPresent() && movieOpt.isPresent()) {
             User user = userOpt.get();

@@ -1,10 +1,10 @@
-package gl2.example.personnel;
+package com.example.letterboxd;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PersonnelApplicationTests {
+class LetterboxdApplicationTests {
 
 	@Test
 	void contextLoads() {

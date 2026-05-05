@@ -4,6 +4,7 @@ package com.example.letterboxd.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "watched_films")
@@ -13,6 +14,7 @@ public class WatchedFilm {
     @Id
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"watchlist", "email"})
     private User user;
 
     @Id
